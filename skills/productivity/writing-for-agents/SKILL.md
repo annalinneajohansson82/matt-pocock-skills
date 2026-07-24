@@ -14,6 +14,7 @@ A **context pointer** is a reference held in the agent's context that names some
 A pointer does two jobs — state what the material is, and list the **branches** that should trigger reaching it (a branch is a distinct case the document handles, so different runs take different paths through it). Every word of an always-loaded pointer costs on every turn, so it earns even harder pruning than the body:
 
 - **Front-load the leading word** — the pointer is where it does its triggering work.
+- **≤60 characters, no exceptions.** Hermes truncates skill descriptions at 60 chars in the system-prompt index — everything past char 60 is silently dropped and never routes. A description that fits in 60 reaches the model; one that doesn't is invisible to auto-invocation. Count characters before saving. This is the single most-common failure mode for skill routing.
 - **One trigger per branch.** Synonyms that rename a single branch are one branch written twice; collapse them and keep only genuinely distinct branches.
 - **Cut identity the body already carries.**
 
